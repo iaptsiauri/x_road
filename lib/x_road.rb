@@ -2,7 +2,7 @@ require 'require_all'
 require 'x_road/version'
 require 'uuidtools'
 require 'savon'
-require 'x_road/active_x_road3'
+require 'x_road/active_x_road'
 
 module XRoad
   class << self
@@ -19,7 +19,8 @@ module XRoad
 
   class Configuration
     Client = Struct.new(:member_class, :member_code, :subsystem_code)
-    Service = Struct.new(:member_class, :member_code, :subsystem_code, :service_code, :version)
+    Service = Struct.new(:member_class, :member_code, :subsystem_code,
+                         :service_code, :version)
 
     attr_accessor :instance
     attr_accessor :protocol_version
@@ -38,16 +39,13 @@ module XRoad
     end
 
     def client=(opts)
-      @client = Client.new(opts[:member_class],
-                           opts[:member_code],
+      @client = Client.new(opts[:member_class], opts[:member_code],
                            opts[:subsystem_code])
     end
 
     def service=(opts)
-      @service = Service.new(opts[:member_class],
-                             opts[:member_code],
-                             opts[:subsystem_code],
-                             opts[:service_code],
+      @service = Service.new(opts[:member_class], opts[:member_code],
+                             opts[:subsystem_code], opts[:service_code],
                              opts[:version])
     end
   end
